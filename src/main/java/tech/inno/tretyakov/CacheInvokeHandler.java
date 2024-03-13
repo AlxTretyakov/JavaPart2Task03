@@ -8,7 +8,8 @@ import java.util.Map;
 
 public class CacheInvokeHandler implements InvocationHandler {
     private final Object object;
-    private final Map<String, Double> cache = new HashMap<>();
+    // Закешированные значения будем хранить в коллекции Map. В качестве ключа используется имя кешируемого поля (задается аннотацией)
+    private final Map<Fields, Double> cache = new HashMap<>();
 
     CacheInvokeHandler(Object object){
         this.object = object;
@@ -16,13 +17,13 @@ public class CacheInvokeHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("CacheInvokeHandler: Invoke!");
+        System.out.println("Вызов перехвачен Proxy");
         Method invokeMethod = object.getClass().getMethod(method.getName(), method.getParameterTypes());
-        String fieldName;
+        Fields fieldName;
 
         if (invokeMethod.isAnnotationPresent(Cache.class)) {
             fieldName = invokeMethod.getDeclaredAnnotation(Cache.class).fieldName();
-            if (fieldName !=null && !fieldName.isEmpty()) {
+            if (fieldName !=null) {
                 if (this.cache.containsKey(fieldName)) {
                     System.out.println("Значение найдено в кеше!");
                     return this.cache.get(fieldName);

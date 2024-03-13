@@ -6,5 +6,5 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Repeatable(Mutators.class)
 public @interface Mutator {
-    String fieldName();
+    Fields fieldName();
 }
