@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class CacheInvokeHandler implements InvocationHandler {
     private final Object object;
-    // Закешированные значения будем хранить в коллекции Map. В качестве ключа используется имя кешируемого поля (задается аннотацией)
+    // Закешированные значения будем хранить в коллекции Map. В качестве ключа используется имя кешируемого поля/результата (задается аннотацией)
     private final Map<Fields, Double> cache = new HashMap<>();
 
     CacheInvokeHandler(Object object){
@@ -43,4 +43,5 @@ public class CacheInvokeHandler implements InvocationHandler {
 
         return invokeMethod.invoke(this.object, args);
     }
+
 }

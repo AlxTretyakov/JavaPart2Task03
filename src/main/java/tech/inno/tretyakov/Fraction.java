@@ -10,8 +10,8 @@ public class Fraction implements Fractionable{
     }
 
     @Override
-    @Mutator(fieldName = Fields.DIV)
-    @Mutator(fieldName = Fields.PLUS)
+    @Mutator(fieldName = Fields.DIV)  // Аннотация указывает что необходимо удалить из кеша результат с ключом Fields.DIV
+    @Mutator(fieldName = Fields.PLUS) // Аннотация указывает что необходимо удалить из кеша результат с ключом Fields.PLUS
     public void setNum(int num) {
         this.num = num;
     }
@@ -24,17 +24,31 @@ public class Fraction implements Fractionable{
     }
 
     @Override
-    @Cache(fieldName = Fields.DIV)
+    @Cache(fieldName = Fields.DIV) // Аннотация указывает что результат необходимо сохранить в кешес ключом Fields.DIV
     public double doubleValue(){
         System.out.println("Расчитываем значение (div)");
         return (double) num/denum;
     }
 
     @Override
-    @Cache(fieldName = Fields.PLUS)
+    @Cache(fieldName = Fields.PLUS) // Аннотация указывает что результат необходимо сохранить в кешес ключом Fields.PLUS
     public double plusValue(){
         System.out.println("Расчитываем значение (plus)");
         return num + denum;
+    }
+
+    @Override
+    public void changeDenumNoCacheClear(int denum){
+        this.denum = denum;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    @Override
+    public int getDenum() {
+        return denum;
     }
 
 }
