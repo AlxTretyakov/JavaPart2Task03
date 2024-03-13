@@ -31,7 +31,7 @@ public class Fraction implements Fractionable{
     }
 
     @Override
-    @Cache(fieldName = Fields.PLUS) // Аннотация указывает что результат необходимо сохранить в кеше  ключом Fields.PLUS
+    @Cache(fieldName = Fields.PLUS) // Аннотация указывает что результат необходимо сохранить в кеше с ключом Fields.PLUS
     public double plusValue(){
         System.out.println("Расчитываем значение (plus)");
         return num + denum;
