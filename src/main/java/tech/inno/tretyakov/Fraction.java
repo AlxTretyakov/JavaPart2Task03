@@ -24,14 +24,14 @@ public class Fraction implements Fractionable{
     }
 
     @Override
-    @Cache(fieldName = Fields.DIV) // Аннотация указывает что результат необходимо сохранить в кешес ключом Fields.DIV
+    @Cache(fieldName = Fields.DIV) // Аннотация указывает что результат необходимо сохранить в кеше с ключом Fields.DIV
     public double doubleValue(){
         System.out.println("Расчитываем значение (div)");
         return (double) num/denum;
     }
 
     @Override
-    @Cache(fieldName = Fields.PLUS) // Аннотация указывает что результат необходимо сохранить в кешес ключом Fields.PLUS
+    @Cache(fieldName = Fields.PLUS) // Аннотация указывает что результат необходимо сохранить в кеше  ключом Fields.PLUS
     public double plusValue(){
         System.out.println("Расчитываем значение (plus)");
         return num + denum;
