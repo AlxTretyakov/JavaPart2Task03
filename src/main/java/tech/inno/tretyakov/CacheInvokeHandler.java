@@ -71,7 +71,7 @@ public class CacheInvokeHandler implements InvocationHandler {
                     result = (Double) invokeMethod.invoke(this.object, args);
                     System.out.println("Значения нет в кэше!");
                 }
-                // В любом случае добаить значение в кэш. Если ранее значения не было, то добавится, если было и было обращение, то обновится время начала жизни
+                // В любом случае добавить значение в кэш. Если ранее значения не было, то добавится, если было и было обращение, то обновится время начала жизни
                 cachedValues.put(stateKey, Pair.of(System.nanoTime(), result));
                 System.out.println("Поместили в кэш/обновили время начала жизни.");
                 System.out.println("Содержимое кэша: " + cache + "\n");
