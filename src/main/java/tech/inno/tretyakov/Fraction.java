@@ -3,37 +3,35 @@ package tech.inno.tretyakov;
 public class Fraction implements Fractionable{
     private int num;
     private int denum;
+    private String stateKey;
 
     public Fraction(int num, int denum) {
         this.num = num;
         this.denum = denum;
+        setStateKey();
     }
 
     @Override
-    @Mutator(fieldName = Fields.DIV)  // Аннотация указывает что необходимо удалить из кеша результат с ключом Fields.DIV
-    @Mutator(fieldName = Fields.PLUS) // Аннотация указывает что необходимо удалить из кеша результат с ключом Fields.PLUS
     public void setNum(int num) {
         this.num = num;
+        setStateKey();
     }
 
     @Override
-    @Mutator(fieldName = Fields.DIV)
-    @Mutator(fieldName = Fields.PLUS)
     public void setDenum(int denum) {
         this.denum = denum;
+        setStateKey();
     }
 
     @Override
-    @Cache(fieldName = Fields.DIV) // Аннотация указывает что результат необходимо сохранить в кеше с ключом Fields.DIV
+    @Cache(lifeTime = 1000)
     public double doubleValue(){
-        System.out.println("Расчитываем значение (div)");
         return (double) num/denum;
     }
 
     @Override
-    @Cache(fieldName = Fields.PLUS) // Аннотация указывает что результат необходимо сохранить в кеше с ключом Fields.PLUS
+    @Cache(lifeTime = 2000)
     public double plusValue(){
-        System.out.println("Расчитываем значение (plus)");
         return num + denum;
     }
 
@@ -51,4 +49,11 @@ public class Fraction implements Fractionable{
         return denum;
     }
 
+    private void setStateKey(){
+        stateKey = String.valueOf(this.num) + '#' + this.denum;
+    }
+
+    public String getStateKey() {
+        return stateKey;
+    }
 }
